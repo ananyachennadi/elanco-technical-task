@@ -88,9 +88,7 @@ def get_monthly_trends():
         monthly = {}
 
         for tick in data:
-            ts_str = tick.get("datetime") or tick.get("timestamp") or tick.get("date")
-            if not ts_str:
-                continue
+            ts_str = tick.get("date")
             try:
                 ts = datetime.fromisoformat(ts_str)
             except ValueError:
@@ -98,7 +96,7 @@ def get_monthly_trends():
             key = f"{ts.year}-{ts.month:02d}"
             monthly[key] = monthly.get(key, 0) + 1
 
-        return monthly
+        return dict(sorted(monthly.items()))
 
 @app.get("/trends/weekly")
 def get_weekly_trends():
@@ -107,15 +105,13 @@ def get_weekly_trends():
         weekly = {}
 
         for tick in data:
-            ts_str = tick.get("datetime") or tick.get("timestamp") or tick.get("date")
-            if not ts_str:
-                continue
+            ts_str = tick.get("date")
             try:
                 ts = datetime.fromisoformat(ts_str)
             except ValueError:
                 continue
-            iso = ts.isocalendar()  # (year, week, weekday)
+            iso = ts.isocalendar()
             key = f"{iso[0]}-W{iso[1]:02d}"
             weekly[key] = weekly.get(key, 0) + 1
-
-        return weekly
+        
+        return dict(sorted(weekly.items()))
