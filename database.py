@@ -6,7 +6,15 @@ import pandas as pd
 import json
 
 excel_file_path = "Tick Sightings.xlsx"
-df = pd.read_excel(excel_file_path)
+
+try:
+    df = pd.read_excel(excel_file_path)
+except FileNotFoundError:
+    print(f"Error: Excel file '{excel_file_path}' not found.")
+    exit(1)
+except Exception as e:
+    print(f"Error reading Excel file: {e}")
+    exit(1)
 
 df = df.drop_duplicates()
 
