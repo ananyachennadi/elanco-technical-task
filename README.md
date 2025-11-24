@@ -37,6 +37,9 @@ A FastAPI backend that processes and serves tick sighting data for public health
 | `/trends/weekly` | Weekly (ISO) aggregation of sightings |
 
 
+## Walkthrough
+[Youtube Link](https://youtu.be/2NkPP0c8W04)
+
 ## Running the project
 
 ### 1. Install Dependencies
